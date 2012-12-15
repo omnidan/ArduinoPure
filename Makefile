@@ -2,11 +2,16 @@ MCU=atmega8 # Select your MCU here.
 CPU=8000000L # 8 MHz (internal clock of atmega8)
 SOURCES_PROJECT=main.cpp # Add project source files here
 PROJECT_NAME=main # result will be main.hex, then
+PROGRAMMER=stk500 # set your programmer here, I use the stk500. On the standard arduino isp it's "arduino"
+PORT=/dev/ttyUSB0 # set the port for the connection to your programmer here. Mine is the virtual serial port /dev/ttyUSB0 (adapter)
+BAUDRATE=115200
 
 CC=./tools/avr/bin/avr-gcc
 CCP=./tools/avr/bin/avr-g++
 AR=./tools/avr/bin/avr-ar rcs
 OBJ=./tools/avr/bin/avr-objcopy
+AVRDUDE=./tools/avrdude
+AVRDUDEFLAGS=-c$(PROGRAMMER) -p$(MCU) -P$(PORT) -C./tools/avrdude.conf -b$(BAUDRATE)
 EEPFLAGS=-O ihex -j .eeprom --set-section-flags=.eeprom=alloc,load --no-change-warnings --change-section-lma .eeprom=0
 HEXFLAGS=-O ihex -R .eeprom
 CFLAGS=-c -g -Os -Wall -fno-exceptions -ffunction-sections -fdata-sections -mmcu=$(MCU) -DF_CPU=$(CPU) -MMD -DUSB_VID=null -DUSB_PID=null -DARDUINO=101 -I./arduino -I./arduino/variants/standard
@@ -47,3 +52,6 @@ clean_results:
 	rm -rf $(ELFCODE) $(EEPCODE) $(HEXCODE)
 
 clean: clean_obj clean_results
+
+upload:
+	$(AVRDUDE) $(AVRDUDEFLAGS) -Uflash:w:$(HEXCODE):i
