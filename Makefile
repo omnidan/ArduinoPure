@@ -28,6 +28,10 @@ ELFCODE=$(join $(PROJECT_NAME),.elf)
 EEPCODE=$(join $(PROJECT_NAME),.eep)
 HEXCODE=$(join $(PROJECT_NAME),.hex)
 
+all: clean $(SOURCES) $(ARFILE) $(ELFCODE) $(EEPCODE) $(HEXCODE)
+
+# Note: Obviously, there is some bug and it doesn't re-create the avr objs, so we need to do "make clean" automatically before recompiling.
+
 $(ARFILE): $(OBJECTS)
 	$(AR) $(ARFILE) $(OBJECTS)
 
@@ -42,8 +46,6 @@ $(EEPCODE):
 
 $(HEXCODE):
 	$(OBJ) $(HEXFLAGS) $(ELFCODE) $@
-
-all: $(SOURCES) $(ARFILE) $(ELFCODE) $(EEPCODE) $(HEXCODE)
 
 clean_obj:
 	rm -rf $(OBJECTS) $(ARFILE)
