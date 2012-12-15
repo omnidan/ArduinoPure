@@ -1,10 +1,10 @@
 MCU=atmega8
-CPU=8000000L # 8MHz (internal clock of atmega8)
+CPU=8000000L # 8 MHz (internal clock of atmega8)
 
-CC=avr-gcc
-CCP=avr-g++
-AR=avr-ar rcs
-OBJ=avr-objcopy
+CC=./tools/avr/bin/avr-gcc
+CCP=./tools/avr/bin/avr-g++
+AR=./tools/avr/bin/avr-ar rcs
+OBJ=./tools/avr/bin/avr-objcopy
 EEPFLAGS=-O ihex -j .eeprom --set-section-flags=.eeprom=alloc,load --no-change-warnings --change-section-lma .eeprom=0
 HEXFLAGS=-O ihex -R .eeprom
 CFLAGS=-c -g -Os -Wall -fno-exceptions -ffunction-sections -fdata-sections -mmcu=$(MCU) -DF_CPU=$(CPU) -MMD -DUSB_VID=null -DUSB_PID=null -DARDUINO=101 -I./arduino -I./arduino/variants/standard
