@@ -1,5 +1,7 @@
-MCU=atmega8
+MCU=atmega8 # Select your MCU here.
 CPU=8000000L # 8 MHz (internal clock of atmega8)
+SOURCES_PROJECT=main.cpp # Add project source files here
+PROJECT_NAME=main # result will be main.hex, then
 
 CC=./tools/avr/bin/avr-gcc
 CCP=./tools/avr/bin/avr-g++
@@ -10,7 +12,6 @@ HEXFLAGS=-O ihex -R .eeprom
 CFLAGS=-c -g -Os -Wall -fno-exceptions -ffunction-sections -fdata-sections -mmcu=$(MCU) -DF_CPU=$(CPU) -MMD -DUSB_VID=null -DUSB_PID=null -DARDUINO=101 -I./arduino -I./arduino/variants/standard
 LDFLAGS=-Os -Wl,--gc-sections -mmcu=$(MCU) -L./arduino -L./ -lm
 ARFILE=arduino/core.a
-SOURCES_PROJECT=main.cpp
 OBJECTS_PROJECT=$(SOURCES_PROJECT:.cpp=.o)
 SOURCES_ARDUINO_C=arduino/wiring_digital.c arduino/WInterrupts.c arduino/wiring_pulse.c arduino/wiring_analog.c arduino/wiring.c arduino/wiring_shift.c
 OBJECTS_ARDUINO_C=$(SOURCES_ARDUINO_C:.c=.o)
@@ -18,11 +19,9 @@ SOURCES_ARDUINO_CPP=arduino/CDC.cpp arduino/Stream.cpp arduino/HID.cpp arduino/T
 OBJECTS_ARDUINO_CPP=$(SOURCES_ARDUINO_CPP:.cpp=.o)
 OBJECTS=$(OBJECTS_PROJECT) $(OBJECTS_ARDUINO_C) $(OBJECTS_ARDUINO_CPP)
 OBJECTS_CORE=$(OBJECTS_ARDUINO_C) $(OBJECTS_ARDUINO_CPP)
-ELFCODE=main.elf
-EEPCODE=main.eep
-HEXCODE=main.hex
-
-all: $(SOURCES) $(ARFILE) $(ELFCODE) $(EEPCODE) $(HEXCODE)
+ELFCODE=$(join $(PROJECT_NAME),.elf)
+EEPCODE=$(join $(PROJECT_NAME),.eep)
+HEXCODE=$(join $(PROJECT_NAME),.hex)
 
 $(ARFILE): $(OBJECTS)
 	$(AR) $(ARFILE) $(OBJECTS)
@@ -38,3 +37,13 @@ $(EEPCODE):
 
 $(HEXCODE):
 	$(OBJ) $(HEXFLAGS) $(ELFCODE) $@
+
+all: $(SOURCES) $(ARFILE) $(ELFCODE) $(EEPCODE) $(HEXCODE)
+
+clean_obj:
+	rm -rf $(OBJECTS) $(ARFILE)
+
+clean_results:
+	rm -rf $(ELFCODE) $(EEPCODE) $(HEXCODE)
+
+clean: clean_obj clean_results
