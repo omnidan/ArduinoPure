@@ -1,18 +1,34 @@
-This is a very simple README to explain the way ArduinoPure works.
+===========
+ArduinoPure
+===========
+
+Copyright (c) 2012-2013, Daniel Bugl. All rights reserved.
+BSD open-source licensed, see LICENSE for further information.
+
+
+Trying out ArduinoPure on an Arduino Uno
+----------------------------------------
 
 Note: All the Makefiles in the current repository have been tested and should work (besides the Makefile.general and Makefile.arduino file, those are templates). If something doesn't work for you, please open an issue report and I'll try to resolve this with you.
 
-Trying out ArduinoPure on an Arduino Uno:
-0. Run "make -o Makefile.arduino_uno" (for other setups, specify the right Makefile in the -o option)
-1. Run "make -o Makefile.arduino_uno upload" (again, specify the right Makefile in the -o option if you have a different setup than the Arduino Uno connected via USB)
+0. Download ArduinoPure and cd into the directory.
+1. Run "make -o Makefile.arduino_uno" (for other setups, specify the right Makefile in the -o option)
+2. Run "make -o Makefile.arduino_uno upload" (again, specify the right Makefile in the -o option if you have a different setup than the Arduino Uno connected via USB)
 
-Simple tutorial to create a new project:
+
+Creating a new project with ArduinoPure
+---------------------------------------
+
 0. Copy ArduinoPure into your project directory
 1. Copy the right makefile to "Makefile". Example: cp ./Makefile.stk500_atmega ./Makefile
 2. (Optional) To keep your project directory clean, delete the other Makefiles. You can also remove the main.cpp test file.
 3. Open up the Makefile file with an editor and change the project name (main) and source files (main.cpp)
 4. Run "make" to compile the project
 5. Run "make upload" to upload the compiled hex code to your microcontroller.
+
+
+Hacking ArduinoPure
+-------------------
 
 If you want to do more with ArduinoPure, you need to modify the Makefile.
 For Arduino projects, please edit the first few lines of the Makefile.arduino file
