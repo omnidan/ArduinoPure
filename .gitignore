@@ -1,0 +1,14 @@
+# C/C++ object files
+*.o
+
+# AVR-GCC debug files
+*.d
+
+# AVR eeprom files
+*.eep
+
+# AVR elf files
+*.elf
+
+# AVR hex files
+*.hex
