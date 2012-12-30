@@ -12,3 +12,6 @@
 
 # AVR hex files
 *.hex
+
+# Ignore the current Makefile, because I always use the stk500_atmega8 one for tests.
+Makefile
