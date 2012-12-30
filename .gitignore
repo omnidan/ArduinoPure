@@ -13,5 +13,8 @@
 # AVR hex files
 *.hex
 
+# Ignore .a files, because the core library of Arduino compiles to core.a
+*.a
+
 # Ignore the current Makefile, because I always use the stk500_atmega8 one for tests.
 Makefile
