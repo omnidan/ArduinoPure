@@ -1,0 +1,10 @@
+This is a very simple README to explain the way ArduinoPure works.
+
+Simple tutorial:
+1. Symlink (or copy) the right makefile to "Makefile". Example: cp ./Makefile.stk500_atmega ./Makefile
+2. Run "make" to compile the project (which is main.cpp)
+3. Run "make upload" to upload the compiled hex code to your microcontroller.
+
+If you want to do more with ArduinoPure, you need to modify the Makefile.
+For Arduino projects, please edit the first few lines of the Makefile.arduino file
+For other projects (especially those that use the STK500, because its default configuration is to use the stk500 programmer), please edit the first few lines of the Makefile.general file.
