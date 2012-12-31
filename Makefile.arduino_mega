@@ -1,9 +1,10 @@
-# Example Makefile for arduino projects
+# The Arduino Mega seems to work with the stk500v2 programmer protocol only.
+# TODO: Confirm this (^) with a test on another system and fresh Arduino Mega bootloader.
 MCU=atmega2560 # Select your MCU here. Arduino Mega has the atmega2560 mcu. For the MCUs of other Arduino boards, please consult arduino.cc
 CPU=16000000L # 16 MHz (arduino has an external clock, this should be the same on most Arduino boards)
 SOURCES_PROJECT=main.cpp # Add project source files here
 PROJECT_NAME=main # result will be main.hex, then
-PROGRAMMER=stk500v2 # set your programmer here, I use the stk500. On the standard arduino isp it's "arduino". The Arduino Mega seems to work with stk500v2 only here. TODO: Confirm this with a test on another system and fresh Arduino Mega bootloader.
+PROGRAMMER=stk500v2 # set your programmer here, I use the stk500. On the standard arduino isp it's "arduino".
 PORT=/dev/ttyACM0 # set the port for the connection to your programmer here. Arduino sits at /dev/ttyACM0
 BAUDRATE=115200
 
