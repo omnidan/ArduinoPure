@@ -4,18 +4,19 @@ SOURCES_PROJECT=main.cpp # Add project source files here
 PROJECT_NAME=main # result will be main.hex, then
 PROGRAMMER=stk500 # set your programmer here, I use the stk500. On the standard arduino isp it's "arduino"
 PORT=/dev/ttyUSB0 # set the port for the connection to your programmer here. Mine is the virtual serial port /dev/ttyUSB0 (adapter)
+MAIN_PATH=./
 BAUDRATE=115200
 
-CC=./tools/avr/bin/avr-gcc
-CCP=./tools/avr/bin/avr-g++
-AR=./tools/avr/bin/avr-ar rcs
-OBJ=./tools/avr/bin/avr-objcopy
-AVRDUDE=./tools/avrdude
-AVRDUDEFLAGS=-c$(PROGRAMMER) -p$(MCU) -P$(PORT) -C./tools/avrdude.conf -b$(BAUDRATE)
+CC=$(MAIN_PATH)tools/avr/bin/avr-gcc
+CCP=$(MAIN_PATH)tools/avr/bin/avr-g++
+AR=$(MAIN_PATH)tools/avr/bin/avr-ar rcs
+OBJ=$(MAIN_PATH)tools/avr/bin/avr-objcopy
+AVRDUDE=$(MAIN_PATH)tools/avrdude
+AVRDUDEFLAGS=-c$(PROGRAMMER) -p$(MCU) -P$(PORT) -C$(MAIN_PATH)tools/avrdude.conf -b$(BAUDRATE)
 EEPFLAGS=-O ihex -j .eeprom --set-section-flags=.eeprom=alloc,load --no-change-warnings --change-section-lma .eeprom=0
 HEXFLAGS=-O ihex -R .eeprom
-CFLAGS=-c -g -Os -Wall -fno-exceptions -ffunction-sections -fdata-sections -mmcu=$(MCU) -DF_CPU=$(CPU) -MMD -DUSB_VID=null -DUSB_PID=null -DARDUINO=101 -I./arduino -I./arduino/variants/standard
-LDFLAGS=-Os -Wl,--gc-sections -mmcu=$(MCU) -L./arduino -L./ -lm
+CFLAGS=-c -g -Os -Wall -fno-exceptions -ffunction-sections -fdata-sections -mmcu=$(MCU) -DF_CPU=$(CPU) -MMD -DUSB_VID=null -DUSB_PID=null -DARDUINO=101 -I$(MAIN_PATH)arduino -I$(MAIN_PATH)arduino/variants/standard
+LDFLAGS=-Os -Wl,--gc-sections -mmcu=$(MCU) -L$(MAIN_PATH)arduino -L$(MAIN_PATH) -lm
 ARFILE=arduino/core.a
 OBJECTS_PROJECT=$(SOURCES_PROJECT:.cpp=.o)
 SOURCES_ARDUINO_C=arduino/wiring_digital.c arduino/WInterrupts.c arduino/wiring_pulse.c arduino/wiring_analog.c arduino/wiring.c arduino/wiring_shift.c
