@@ -1,0 +1,7 @@
+Special thanks to:
+
+arduino - the guys who created the framework this is based off
+https://github.com/arduino/Arduino
+
+damellis - the guy who created pins_arduino.h for tiny8 and tiny14 chips
+https://github.com/damellis/attiny
