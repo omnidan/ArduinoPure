@@ -1,0 +1,9 @@
+I had to do a few tweaks to get Firmata working with ArduinoPure, here's a list:
+ * Imported all the libraries from the Arduino libraries folder. That's Wire, Servo and Firmata.
+ * Renamed twi.c to twi.cpp
+ * Commented out the 'extern "C"' part in Wire.cpp, it resulted in undefined references.
+ * Edited the Makefile, added the other sources. (twi.cpp, Wire.cpp, Servo.cpp, Firmata.cpp)
+ * Added StandardFirmata.cpp from the Arduino StandardFirmata.ino example
+ * Edited the StandardFirmata.cpp file, added prototypes for the functions and the Arduino.h header so it compiles correctly with ArduinoPure
+
+Have fun with Firmata in ArduinoPure! 
